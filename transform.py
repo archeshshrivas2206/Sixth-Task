@@ -6,6 +6,12 @@ from mapping import (
     characteristic_master_mapping,
 )
 
+from display_labels import(
+    PRODUCT_DISPLAY_LABELS,
+    PRICE_DISPLAY_LABELS,
+    CHARACTERISTICS_DISPLAY_LABELS,
+)
+
 def rename_known(df, mapping):
     """Only rename columns that actually exist in this DataFrame."""
     valid = {k: v for k, v in mapping.items() if k in df.columns}
@@ -27,18 +33,31 @@ def build_product_sheet(df_offering, df_category, df_category_master):
         right_on="product_offering_id",
         how="left",
     )
+    df =df.drop(columns=["product_offering_id"])
 
-    return rename_known(df, product_offering_mapping)
+    combined_mapping={**product_offering_mapping,"category_name":"categoryName"}
+    df=rename_known(df,combined_mapping)
+
+    df=df[list(PRODUCT_DISPLAY_LABELS.keys())]
+
+    return df.rename(columns=PRODUCT_DISPLAY_LABELS)
 
 
 def build_price_sheet(df_price):
-    return rename_known(df_price, product_offering_price_mapping)
+    df = rename_known(df_price, product_offering_price_mapping)
+    df =df[list(PRODUCT_DISPLAY_LABELS.keys())]
+    return df.rename(columns=PRICE_DISPLAY_LABELS)
 
 
 def build_characteristics_sheet(df_char, df_char_master):
     df = df_char.merge(
-        df_char_master.rename(columns={"characteristic_code": "characteristic_code"}),
+        df_char_master,
         on="characteristic_code",
         how="left",
     )
-    return rename_known(df, product_offering_characteristic_mapping)
+    combined_mapping={**product_offering_characteristic_mapping, **characteristic_master_mapping}
+    df=rename_known(df,combined_mapping)
+
+    df=df[list(CHARACTERISTICS_DISPLAY_LABELS)]
+
+    return rename_known(df, combined_mapping)
