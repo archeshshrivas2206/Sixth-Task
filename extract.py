@@ -4,7 +4,7 @@ from config import DB_CONNECTION_STRING
 
 def get_engine():
     engine = create_engine(DB_CONNECTION_STRING)
-    return engine
+    return engine.execution_options(schema_translate_map={None:"useranki140"})
 
 def extract_product_offering(engine):
     query="SELECT id,description,unit_type,hsn_sac_code_id,valid_end_datetime FROM product_offering"
