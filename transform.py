@@ -37,8 +37,8 @@ def build_price_sheet(df_price):
 
 def build_characteristics_sheet(df_char, df_char_master):
     df = df_char.merge(
-        df_char_master.rename(columns={"characteristic_code": "characteristic_code_id"}),
-        on="characteristic_code_id",
+        df_char_master.rename(columns={"characteristic_code": "characteristic_code"}),
+        on="characteristic_code",
         how="left",
     )
     return rename_known(df, product_offering_characteristic_mapping)
