@@ -1,3 +1,3 @@
 import os 
 
-DB_CONNECTION_STRING=" to be placed."
+DB_CONNECTION_STRING="postgresql://postgres:Ankit%402203@localhost:5432/ic-tenant"
