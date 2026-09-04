@@ -7,7 +7,7 @@ def get_engine():
     return engine.execution_options(schema_translate_map={None:"useranki140"})
 
 def extract_product_offering(engine):
-    query="SELECT id,description,unit_type,hsn_sac_code_id,valid_end_datetime FROM product_offering"
+    query="SELECT id,name,description,unit_type,hsn_sac_code_id,valid_start_datetime,valid_end_datetime FROM product_offering"
     return pd.read_sql(query,engine)
 
 def extract_product_offering_price(engine):

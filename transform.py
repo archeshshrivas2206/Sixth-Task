@@ -43,9 +43,14 @@ def build_product_sheet(df_offering, df_category, df_category_master):
     return df.rename(columns=PRODUCT_DISPLAY_LABELS)
 
 
-def build_price_sheet(df_price):
-    df = rename_known(df_price, product_offering_price_mapping)
-    df =df[list(PRODUCT_DISPLAY_LABELS.keys())]
+def build_price_sheet(df_price,df_offering):
+    df=df_price.merge(df_offering[["id","name"]].rename(columns={"id":"product_offering_id","name":"product_name"}),
+    on="product_offering_id",
+    how="left",
+    )
+    df = rename_known(df, product_offering_price_mapping)
+    df=df.rename(columns={"product_name":"Product name"})
+    df =df[list(PRODUCT_DISPLAY_LABELS.keys())+ ["Product name"]]
     return df.rename(columns=PRICE_DISPLAY_LABELS)
 
 

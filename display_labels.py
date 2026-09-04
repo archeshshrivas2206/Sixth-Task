@@ -2,9 +2,11 @@
 
 PRODUCT_DISPLAY_LABELS = {
     "identifier": "Product ID",
+    "productName":"Product name",
     "productInformation": "Product description",
     "unitType": "Unit type",
     "hsnSacCd": "HSN Code",
+    "startDateTime":"Start date",
     "endDateTime": "End date",
     "categoryName": "Product category",
 }

@@ -28,14 +28,14 @@ def main():
 
     # transform into final report tables
     product_sheet = build_product_sheet(df_offering, df_category, df_category_master)
-    price_sheet = build_price_sheet(df_price)
-    characteristics_sheet = build_characteristics_sheet(df_char, df_char_master)
+    price_sheet = build_price_sheet(df_price,df_offering)
+    characteristics_sheet = build_characteristics_sheet(df_char, df_char_master,df_offering)
 
     # write to Excel — one file, three sheets
     with pd.ExcelWriter("product_report.xlsx", engine="openpyxl") as writer:
         product_sheet.to_excel(writer, sheet_name="Product", index=False)
         price_sheet.to_excel(writer, sheet_name="Price", index=False)
-        characteristics_sheet.to_excel(writer, sheet_name="Characteristics", index=False)
+        characteristics_sheet.to_excel(writer, sheet_name="Custom", index=False)
 
     print("Report written to product_report.xlsx")
 
