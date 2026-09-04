@@ -1,8 +1,11 @@
 # Steps to run 
 
-## change the config.py and add db url
+1) change the config.py and add db url
 
-## set venv and import the requirements
+2) set venv and import the requirements
 
-### run the main.py 
+3) run the main.py it will create excel sheet with data of whole schema
+
+4) then run the run_validation.py that will perform custom validation on the excel and it will be updated with new column called Error
+
 
