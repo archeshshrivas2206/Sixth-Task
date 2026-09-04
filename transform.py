@@ -50,7 +50,7 @@ def build_price_sheet(df_price,df_offering):
     )
     df = rename_known(df, product_offering_price_mapping)
     df=df.rename(columns={"product_name":"Product name"})
-    df =df[list(PRODUCT_DISPLAY_LABELS.keys())+ ["Product name"]]
+    df =df[list(PRICE_DISPLAY_LABELS.keys())+ ["Product name"]]
     return df.rename(columns=PRICE_DISPLAY_LABELS)
 
 

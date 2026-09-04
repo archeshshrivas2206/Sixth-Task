@@ -15,6 +15,12 @@ from transform import(
     build_product_sheet
 )
 
+def strip_timezones(df):
+    for col in df.columns:
+        if pd.api.types.is_datetime64tz_dtype(df[col]):
+            df[col] = df[col].dt.tz_localize(None)
+    return df
+
 def main():
     engine = get_engine()
 
@@ -29,8 +35,11 @@ def main():
     # transform into final report tables
     product_sheet = build_product_sheet(df_offering, df_category, df_category_master)
     price_sheet = build_price_sheet(df_price,df_offering)
-    characteristics_sheet = build_characteristics_sheet(df_char, df_char_master,df_offering)
+    characteristics_sheet = build_characteristics_sheet(df_char, df_char_master)
 
+    product_sheet = strip_timezones(product_sheet)
+    price_sheet = strip_timezones(price_sheet)
+    characteristics_sheet = strip_timezones(characteristics_sheet)
     # write to Excel — one file, three sheets
     with pd.ExcelWriter("product_report.xlsx", engine="openpyxl") as writer:
         product_sheet.to_excel(writer, sheet_name="Product", index=False)
@@ -42,3 +51,4 @@ def main():
 
 if __name__=="__main__":
     main()
+

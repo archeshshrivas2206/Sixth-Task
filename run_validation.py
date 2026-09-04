@@ -15,7 +15,7 @@ def main():
 
     price_sheet=pd.read_excel(REPORT_FILE,sheet_name="Price")
 
-    characteristics_sheet=pd.read_excel(REPORT_FILE,sheet_name="Characteristics") # for now Characteristics later replace to Custom
+    characteristics_sheet=pd.read_excel(REPORT_FILE,sheet_name="Custom") # for now Characteristics later replace to Custom
 
     # NaN to None 
 
@@ -37,7 +37,7 @@ def main():
     with pd.ExcelWriter(REPORT_FILE,engine="openpyxl")as writer:
         product_sheet.to_excel(writer,sheet_name="Product",index=False)
         price_sheet.to_excel(writer,sheet_name="Price",index=False)
-        characteristics_sheet.to_excel(writer,sheet_name="Characteristics",index=False)# for now Characteristics later replace to Custom
+        characteristics_sheet.to_excel(writer,sheet_name="Custom",index=False)# for now Characteristics later replace to Custom
     print(f"Validation complete - {REPORT_FILE} Updated with error columns. ")
 
 if __name__=="__main__":
