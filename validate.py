@@ -1,20 +1,31 @@
 from datetime import datetime
 import re
+import pandas as pd
 
-ALLOWED_UNIT_TYPES=[]
+ALLOWED_UNIT_TYPES=["pcs","doz","kgs","g","l","ml","d","mm","mo"]
 ALLOWED_TAX_SCHEMES=[]
 ALLOWED_FIELD_TYPES=["textfield","date","phone number"]
 
 PHONE_PATTERN=re.compile(r"^(\+91)?[6-9]\d{9}$")
 
+
+def is_blank(value):
+    if value is None:
+        return True
+    if isinstance(value,float) and pd.isna(value):
+        return True
+    if isinstance(value,str) and value.strip()=="":
+        return True
+    return False
+
 def validate_non_empty(value,label):
-    if value is None or str(value).string()=="":
+    if is_blank(value):
         return f"{label} is empty"
     return None
 
 
 def validate_unit_type(value):
-    if value and value not in ALLOWED_UNIT_TYPES:
+    if not is_blank(value) and value not in ALLOWED_UNIT_TYPES:
         return f"Invalid unit type : {value}"
     return None
 
@@ -39,13 +50,13 @@ def validate_end_date(start,end):
 
 
 def validate_tax_scheme(value):
-    if value and value not in ALLOWED_TAX_SCHEMES:
+    if not is_blank(value) and value not in ALLOWED_TAX_SCHEMES:
         return f"Invalid tax scheme code: {value}"
     return None
 
 
 def validate_field_type(value):
-    if value and value not in ALLOWED_FIELD_TYPES:
+    if not is_blank(value) and value not in ALLOWED_FIELD_TYPES:
         return f"Invalid field types:{value}"
     return None
 
@@ -89,7 +100,7 @@ def validate_characteristics_row(row):
     field_type=row.get("Field type")
     field_value=row.get("Default value")
 
-    if field_name:
+    if not is_blank(field_name):
         if err:= validate_non_empty(field_type,"Field type"):
             errors.append(err)
         else:
