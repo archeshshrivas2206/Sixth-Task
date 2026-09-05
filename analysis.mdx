@@ -1,0 +1,42 @@
+# The optional fields in the ui are :
+
+1. Product category
+2. Product description
+3. Unit type 
+4. HSN Code
+5. End date
+6. Price name
+7. Default tax applicability
+8. Custom fields : Field name 
+                   Field type
+                   Default value
+
+
+# ui data fields 
+
+
+1.  Product category :  categoryMaster[categoryName]
+2.  Product description : productInformation 
+3.  unit type : unitType
+4.  HSN code : hsnSacCd
+5.  End date : endDatetime
+6.  Price name : priceName
+7.  Default tax applicability : taxSchemeCd
+8.1 Field name : characteristics[fieldName]
+8.2 Field type : characteristics[fieldType]
+8.3 Default value : characteristics[value]
+
+
+# db column name 
+
+1.  name (from table CategoryMaster)
+2.  description (from table ProductOffering)
+3.  unit_type (from table ProductOffering)
+4.  hsn_sac_code (from table ProductOffering)
+5.  valid_end_datetime (from table ProductOffering)
+6.  name (from table ProductOfferingPrice)
+7.  tax_scheme_code (from table ProductOfferingPrice)
+8.1 characteristic_name (from table CharacteristicMaster)
+8.2 characteristic_value_type (from table CharacteristicMaster)
+8.3 characteristic_value (from table ProductOfferingCharacteristic)
+
