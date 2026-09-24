@@ -1,4 +1,4 @@
-# mapping.py
+
 
 product_offering_mapping = {
     "id": "identifier",
