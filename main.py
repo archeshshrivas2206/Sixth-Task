@@ -2,12 +2,8 @@ import pandas as pd
 
 from extract import (
     get_engine,
-    extract_category_master,
-    extract_characteristic_master,
-    extract_product_offering,
-    extract_product_offering_category,
-    extract_product_offering_characteristic,
-    extract_product_offering_price
+    extract_table,
+    TABLES
 )
 from transform import(
     build_characteristics_sheet,
@@ -25,12 +21,12 @@ def main():
     engine = get_engine()
 
     # extracting raw tables
-    df_offering = extract_product_offering(engine)
-    df_price = extract_product_offering_price(engine)
-    df_category = extract_product_offering_category(engine)
-    df_category_master = extract_category_master(engine)
-    df_char = extract_product_offering_characteristic(engine)
-    df_char_master = extract_characteristic_master(engine)
+    df_offering = extract_table(engine,"product_offering")
+    df_price = extract_table(engine,"product_offering_price")
+    df_category = extract_table(engine,"product_offering_category")
+    df_category_master = extract_table(engine,"category_master")
+    df_char = extract_table(engine,"product_offering_characteristics")
+    df_char_master = extract_table(engine,"characteristic_master")
 
     # transform into final report tables
     product_sheet = build_product_sheet(df_offering, df_category, df_category_master)
@@ -40,6 +36,7 @@ def main():
     product_sheet = strip_timezones(product_sheet)
     price_sheet = strip_timezones(price_sheet)
     characteristics_sheet = strip_timezones(characteristics_sheet)
+
     # write to Excel — one file, three sheets
     with pd.ExcelWriter("product_report.xlsx", engine="openpyxl") as writer:
         product_sheet.to_excel(writer, sheet_name="Product", index=False)

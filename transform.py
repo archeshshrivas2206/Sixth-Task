@@ -1,4 +1,3 @@
-# transform.py
 from mapping import (
     product_offering_mapping,
     product_offering_price_mapping,
@@ -38,7 +37,7 @@ def build_product_sheet(df_offering, df_category, df_category_master):
     combined_mapping={**product_offering_mapping,"category_name":"categoryName"}
     df=rename_known(df,combined_mapping)
 
-    df=df[list(PRODUCT_DISPLAY_LABELS.keys())]
+    # df=df[list(PRODUCT_DISPLAY_LABELS.keys())]
 
     return df.rename(columns=PRODUCT_DISPLAY_LABELS)
 
