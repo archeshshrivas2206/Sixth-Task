@@ -1,10 +1,7 @@
 import pandas as pd
 
-from extract import (
-    get_engine,
-    extract_table,
-    TABLES
-)
+from extract import get_engine, extract_table, TABLES
+
 from transform import(
     build_characteristics_sheet,
     build_price_sheet,
@@ -25,7 +22,7 @@ def main():
     df_price = extract_table(engine,"product_offering_price")
     df_category = extract_table(engine,"product_offering_category")
     df_category_master = extract_table(engine,"category_master")
-    df_char = extract_table(engine,"product_offering_characteristics")
+    df_char = extract_table(engine,"product_offering_characteristic")
     df_char_master = extract_table(engine,"characteristic_master")
 
     # transform into final report tables
