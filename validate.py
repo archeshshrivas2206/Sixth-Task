@@ -3,7 +3,7 @@ import re
 import pandas as pd
 
 ALLOWED_UNIT_TYPES=["pcs","doz","kgs","g","l","ml","d","mm","mo"]
-ALLOWED_TAX_SCHEMES=[]
+ALLOWED_TAX_SCHEMES=["GST_INTER","GST_INTRA","GST_EXPORT_LUT","GST_EXPORT_WP","GST_EXEMPT","GST_UT","NO_TAX"]
 ALLOWED_FIELD_TYPES=["textfield","date","phone number"]
 
 PHONE_PATTERN=re.compile(r"^(\+91)?[6-9]\d{9}$")

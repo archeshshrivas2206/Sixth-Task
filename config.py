@@ -1,3 +1,2 @@
-import os 
 
-DB_CONNECTION_STRING="postgresql://postgres:Ankit%402203@localhost:5432/ic-tenant?options=-csearch_path=useranki140"
+DB_CONNECTION_STRING="postgresql://postgres:1234@localhost:5432/new_tenant_db?options=-csearch_path=useranki140"

@@ -49,7 +49,7 @@ def build_price_sheet(df_price,df_offering):
     )
     df = rename_known(df, product_offering_price_mapping)
     df=df.rename(columns={"product_name":"Product name"})
-    df =df[list(PRICE_DISPLAY_LABELS.keys())+ ["Product name"]]
+    # df =df[list(PRICE_DISPLAY_LABELS.keys())+ ["Product name"]]
     return df.rename(columns=PRICE_DISPLAY_LABELS)
 
 
@@ -62,6 +62,6 @@ def build_characteristics_sheet(df_char, df_char_master):
     combined_mapping={**product_offering_characteristic_mapping, **characteristic_master_mapping}
     df=rename_known(df,combined_mapping)
 
-    df=df[list(CHARACTERISTICS_DISPLAY_LABELS)]
+    # df=df[list(CHARACTERISTICS_DISPLAY_LABELS)]
 
-    return rename_known(df, combined_mapping)
+    return df.rename(columns=CHARACTERISTICS_DISPLAY_LABELS)

@@ -20,7 +20,7 @@ def get_table_columns(engine, table_name):
     return [col["name"] for col in inspector.get_columns(table_name)]
 
 def extract_table(engine, table_name):
-    columns = get_table_columns(engine,table_name)
-    column_list=", ".join(columns)
+    columns = get_table_columns(engine, table_name)
+    column_list= ", ".join(columns)
     query=f"SELECT {column_list} FROM {table_name}"
     return pd.read_sql(query,engine)
