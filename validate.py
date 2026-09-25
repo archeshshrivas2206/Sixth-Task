@@ -80,7 +80,6 @@ def validate_product_row(row):
     errors = []
     for err in [
         validate_unit_type(row.get("Unit type")),
-        validate_hsn_code(row.get("HSN Code")),
         validate_end_date(row.get("Start date"), row.get("End date")),
     ]:
         if err:
