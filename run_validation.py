@@ -4,7 +4,12 @@ from validate import(
     validate_product_row,
     validate_price_row,
     validate_characteristics_row,
+    ALLOWED_FIELD_TYPES,
+    ALLOWED_TAX_SCHEMES,
+    ALLOWED_UNIT_TYPES,
 )
+
+from excel_rules import add_date_order_highlight, add_dropdown,add_date_order_validation
 
 REPORT_FILE="product_report.xlsx"
 
@@ -38,6 +43,21 @@ def main():
         product_sheet.to_excel(writer,sheet_name="Product",index=False)
         price_sheet.to_excel(writer,sheet_name="Price",index=False)
         characteristics_sheet.to_excel(writer,sheet_name="Custom",index=False)# for now Characteristics later replace to Custom
+
+
+        ws_product=writer.sheets["Product"]
+        add_dropdown(ws_product,product_sheet,"Unit type",ALLOWED_UNIT_TYPES)
+        add_date_order_highlight(ws_product,product_sheet,"Start date","End date")
+        add_date_order_validation(ws_product,product_sheet,"Start date","End date")
+
+
+
+        ws_price=writer.sheets["Price"]
+        add_dropdown(ws_price,price_sheet,"Default tax applicability",ALLOWED_TAX_SCHEMES)
+
+        ws_custom=writer.sheets["Custom"]
+        add_dropdown(ws_custom,characteristics_sheet,"Field type",ALLOWED_FIELD_TYPES)
+
     print(f"Validation complete - {REPORT_FILE} Updated with error columns. ")
 
 if __name__=="__main__":

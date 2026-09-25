@@ -58,6 +58,7 @@ def build_characteristics_sheet(df_char, df_char_master):
         df_char_master,
         on="characteristic_code",
         how="left",
+        suffixes=("","_master"),
     )
     combined_mapping={**product_offering_characteristic_mapping, **characteristic_master_mapping}
     df=rename_known(df,combined_mapping)
