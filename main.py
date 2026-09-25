@@ -28,7 +28,7 @@ def main():
     # transform into final report tables
     product_sheet = build_product_sheet(df_offering, df_category, df_category_master)
     price_sheet = build_price_sheet(df_price,df_offering)
-    characteristics_sheet = build_characteristics_sheet(df_char, df_char_master)
+    characteristics_sheet = build_characteristics_sheet(df_char, df_char_master,df_offering)
 
     product_sheet = strip_timezones(product_sheet)
     price_sheet = strip_timezones(price_sheet)

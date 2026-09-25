@@ -37,7 +37,8 @@ def build_product_sheet(df_offering, df_category, df_category_master):
     combined_mapping={**product_offering_mapping,"category_name":"categoryName"}
     df=rename_known(df,combined_mapping)
 
-    # df=df[list(PRODUCT_DISPLAY_LABELS.keys())]
+    wanted =[col for col in PRODUCT_DISPLAY_LABELS.keys() if col in df.columns]
+    df =df[wanted]
 
     return df.rename(columns=PRODUCT_DISPLAY_LABELS)
 
@@ -49,20 +50,31 @@ def build_price_sheet(df_price,df_offering):
     )
     df = rename_known(df, product_offering_price_mapping)
     df=df.rename(columns={"product_name":"Product name"})
-    # df =df[list(PRICE_DISPLAY_LABELS.keys())+ ["Product name"]]
+
+    wanted =[col for col in list(PRICE_DISPLAY_LABELS.keys())+["Product name"] if col in df.columns]
+    df=df[wanted]
+
     return df.rename(columns=PRICE_DISPLAY_LABELS)
 
 
-def build_characteristics_sheet(df_char, df_char_master):
+def build_characteristics_sheet(df_char, df_char_master,df_offering):
     df = df_char.merge(
         df_char_master,
         on="characteristic_code",
         how="left",
         suffixes=("","_master"),
     )
+    df=df.merge(
+        df_offering[["id","name"]].rename(columns={"id":"product_offering_id","name":"product_name"}),
+        on ="product_offering_id",
+        how="left",
+    
+    )
     combined_mapping={**product_offering_characteristic_mapping, **characteristic_master_mapping}
     df=rename_known(df,combined_mapping)
+    df = df.rename(columns={"product_name":"Product name"})
 
-    # df=df[list(CHARACTERISTICS_DISPLAY_LABELS)]
-
+    wanted =[col for col in list(CHARACTERISTICS_DISPLAY_LABELS.keys())+["Product name"] if col in df.columns]
+    df=df[wanted]
+    
     return df.rename(columns=CHARACTERISTICS_DISPLAY_LABELS)
